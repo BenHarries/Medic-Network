@@ -1,9 +1,27 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Dropdown } from "semantic-ui-react";
+import { Form, Dropdown, Card, Image, Button, Input } from "semantic-ui-react";
+// import "./app1.css";
 
 // import DropdownExampleSelection from "./dropdown";
 
+const RankOptions = [
+  {
+    key: "F1",
+    text: "F1",
+    value: "F1"
+  },
+  {
+    key: "F2",
+    text: " F2",
+    value: "F2"
+  },
+  {
+    key: "Registra",
+    text: "Registra",
+    value: "Registra"
+  }
+];
 const SpecialismOptions = [
   {
     key: "Jenny Hess",
@@ -26,56 +44,24 @@ const SpecialismOptions = [
     }
   },
   {
-    key: "Stevie Feliciano",
-    text: "Stevie Feliciano",
-    value: "Stevie Feliciano",
+    key: "Paediatrician",
+    text: "Paediatrician",
+    value: "Paediatrician",
     image: {
       avatar: true,
       src:
-        "https://image.shutterstock.com/image-vector/doodle-icon-human-heart-vector-450w-552333052.jpg"
-    }
-  },
-  {
-    key: "Christian",
-    text: "Christian",
-    value: "Christian",
-    image: {
-      avatar: true,
-      src:
-        "https://image.shutterstock.com/image-vector/doodle-icon-human-heart-vector-450w-552333052.jpg"
-    }
-  },
-  {
-    key: "Matt",
-    text: "Matt",
-    value: "Matt",
-    image: {
-      avatar: true,
-      src:
-        "https://image.shutterstock.com/image-vector/doodle-icon-human-heart-vector-450w-552333052.jpg"
-    }
-  },
-  {
-    key: "Justen Kitsune",
-    text: "Justen Kitsune",
-    value: "Justen Kitsune",
-    image: {
-      avatar: true,
-      src:
-        "https://image.shutterstock.com/image-vector/doodle-icon-human-heart-vector-450w-552333052.jpg"
+        "https://www.ouh.nhs.uk/paediatricorthopaedics/assets/images/home1.jpg"
     }
   }
 ];
 export default class PersonList extends React.Component {
   state = {
     name: "",
-    message: ""
+    message: "",
+    number: "",
+    full_name: "",
+    Rank: ""
   };
-
-  // handleCatChange = event => {
-  //   this.setState({ name: event.target.value });
-  //   console.log(this.state);
-  // };
 
   handleCatChange = (e, { value }) => {
     this.setState({ name: value });
@@ -86,13 +72,28 @@ export default class PersonList extends React.Component {
     this.setState({ message: event.target.value });
     console.log("set message");
   };
+  handleNumChange = event => {
+    this.setState({ number: event.target.value });
+    console.log("set message");
+  };
+  handleNamChange = event => {
+    this.setState({ full_name: event.target.value });
+    console.log("set message");
+  };
+  handleRankChange = (e, { value }) => {
+    this.setState({ Rank: value });
+    console.log(this.state);
+  };
 
   handleSubmit = event => {
     event.preventDefault();
 
     const user = {
       name: this.state.name,
-      message: this.state.message
+      message: this.state.message,
+      number: this.state.number,
+      full_name: this.state.full_name,
+      Rank: this.state.Rank
     };
 
     axios.post(`http://127.0.0.1:1880/MyDoc`, { user }).then(res => {
@@ -105,28 +106,90 @@ export default class PersonList extends React.Component {
     const { value } = this.state;
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          {/* <label>
-            Person Name:
-            <input type="text" name="name" onChange={this.handleCatChange} />
-          </label> */}
-
-          <Dropdown
-            placeholder="Select Subject"
-            name="subject"
-            onChange={this.handleCatChange}
-            selection
-            options={SpecialismOptions}
-            value={value}
-          />
-          <Form.TextArea
-            value={this.value}
-            placeholder="What You would Like to ask..."
-            onChange={this.handleMesChange}
-          />
-          <button type="submit">Add</button>
-        </form>
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -50%)"
+        }}
+      >
+        <section>
+          <Card>
+            <Image src="https://i.ibb.co/j6DzQYj/quesion1.png" />
+            <Card.Content>
+              <Form>
+                <form onSubmit={this.handleSubmit}>
+                  <Dropdown
+                    // style={{
+                    //   position: "absolute",
+                    //   left: "50%",
+                    //   top: "60%",
+                    //   transform: "translate(-50%, -60%)"
+                    // }}
+                    placeholder="Select Specialist"
+                    name="subject"
+                    onChange={this.handleCatChange}
+                    selection
+                    fluid
+                    search
+                    options={SpecialismOptions}
+                    value={value}
+                  />
+                  <Form.TextArea
+                    value={this.value}
+                    placeholder="What do you need help with?"
+                    onChange={this.handleMesChange}
+                  />
+                  <Form.Group widths="equal">
+                    <Input
+                      // control={Input}
+                      style={{ width: "60%" }}
+                      size="large"
+                      type="text"
+                      placeholder="Full Name"
+                      name="name"
+                      onChange={this.handleNamChange}
+                      fluid
+                      padded
+                    />
+                    <br />
+                    <Input
+                      padded
+                      style={{ width: "40%" }}
+                      control={Input}
+                      size="large"
+                      type="text"
+                      placeholder="Number"
+                      onChange={this.handleNumChange}
+                      fluid
+                    />
+                  </Form.Group>
+                  <Dropdown
+                    onChange={this.handleRankChange}
+                    selection
+                    fluid
+                    defaultValue="F1"
+                    options={RankOptions}
+                    value={value}
+                  />
+                  <div
+                  // style={{
+                  //   position: "absolute",
+                  //   left: "50%",
+                  //   top: "90%",
+                  //   transform: "translate(50%, -80%)"
+                  // }}
+                  >
+                    <Button type="submit" color="blue">
+                      Send
+                    </Button>
+                  </div>
+                </form>{" "}
+              </Form>
+            </Card.Content>
+          </Card>
+        </section>
       </div>
     );
   }
