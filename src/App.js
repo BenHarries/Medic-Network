@@ -7,8 +7,8 @@ import { Form, Dropdown } from "semantic-ui-react";
 const SpecialismOptions = [
   {
     key: "Jenny Hess",
-    text: "Cardiology",
-    value: "cardiology",
+    text: "Cardiologist",
+    value: "cardiologist",
     image: {
       avatar: true,
       src:
