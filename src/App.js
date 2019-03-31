@@ -166,10 +166,11 @@ export default class PersonList extends React.Component {
                     />
                   </Form.Group>
                   <Dropdown
+                    placeholder="Your Rank"
+                    name="subject"
                     onChange={this.handleRankChange}
                     selection
                     fluid
-                    defaultValue="F1"
                     options={RankOptions}
                     value={value}
                   />
