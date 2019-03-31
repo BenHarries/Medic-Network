@@ -1,12 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Container, Header, List } from "semantic-ui-react";
+import "semantic-ui-css/semantic.min.css";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import Example from "./App";
+import DropdownExampleSelection from "./dropdown";
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const App = ({ children }) => (
+  <Container style={{ margin: 20 }}>{children}</Container>
+);
+
+ReactDOM.render(
+  <App>
+    <Example />
+    {/* <DropdownExampleSelection /> */}
+  </App>,
+  document.getElementById("root")
+);
